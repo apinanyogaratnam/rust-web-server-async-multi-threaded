@@ -8,7 +8,7 @@ extern crate futures;
 use futures::executor::ThreadPoolBuilder;
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap(); // bind listener
+    let listener = TcpListener::bind("0.0.0.0:8080").unwrap(); // bind listener
 
     let mut pool_builder = ThreadPoolBuilder::new();
     pool_builder.pool_size(100);
