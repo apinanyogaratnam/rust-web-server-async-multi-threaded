@@ -39,16 +39,9 @@ async fn handle_connection(mut stream: TcpStream, count: Box<i64>) {
         thread::sleep(Duration::from_secs(2));
     }
 
-    let header = "
-        HTTP/1.0 200 OK
-        Connection: keep-alive
-        Content-Length: 174
-        Content-Type: text/html; charset=utf-8
-    ";
-
     let contents = fs::read_to_string("hello.html").unwrap();
 
-    let response = format!("{}\r\n\r\n{}", header, contents);
+    let response = format!("HTTP/1.1 200 OK\r\nConnection: keep-alive\r\nContent-Length: {}\r\nContent-Type: text/html; charset=utf-8\r\n\r\n{}", contents.len(), contents);
 
     stream.write(response.as_bytes()).unwrap(); // write response
     stream.flush().unwrap();
